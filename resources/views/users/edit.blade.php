@@ -9,31 +9,35 @@
 </head>
 <body>
     <h1>
-        Users / Create
+        Users / Edit
     </h1>
 
-    <form method="POST" action="/users/store">
+    <form method="POST" action="/users/{{$user->id}}">
         @csrf
+        @method('PUT')
 
         <div class="mb-3">
             <label class="form-label">
                 Nome
             </label>
-            <input type="text" class="form-control" name="name">
+            <input
+                type="text"
+                class="form-control"
+                name="name"
+                value="{{$user->name}}"
+            >
         </div>
 
         <div class="mb-3">
             <label class="form-label">
                 E-mail
             </label>
-            <input type="email" class="form-control" name="email">
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">
-                Senha
-            </label>
-            <input type="password" class="form-control" name="password">
+            <input
+                type="email"
+                class="form-control"
+                name="email"
+                value="{{$user->email}}"
+            >
         </div>
 
         <a href="/users" class="btn btn-secondary">Voltar</a>

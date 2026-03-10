@@ -32,13 +32,51 @@ class UserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     { 
-        // Validar informações (email, senha, etc.)
+        $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email|unique:users',
+            'password' => 'required',
+        ], [
+            'name.required' => 'O campo nome é obrigatório',
+            'email.unique' => 'Já existe um user com este e-mail',
+        ]);
  
         $user = new User;
  
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = $request->password;
+ 
+        $user->save();
+ 
+        return redirect('/users');
+    }
+
+    /**
+     * Edit.
+     */
+    public function edit(Request $request, User $user): View
+    { 
+        return view('users.edit', [
+            'user' => $user
+        ]);
+    }
+
+    /**
+     * Update.
+     */
+    public function update(Request $request, User $user): RedirectResponse
+    {
+        $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+        ], [
+            'name.required' => 'O campo nome é obrigatório',
+            'email.unique' => 'Já existe um user com este e-mail',
+        ]);
+ 
+        $user->name = $request->name;
+        $user->email = $request->email;
  
         $user->save();
  
