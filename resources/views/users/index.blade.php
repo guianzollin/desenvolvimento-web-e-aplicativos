@@ -47,5 +47,10 @@
             @endforeach
         </tbody>
     </table>
+
+    <form method="POST" action="/logout">
+        @csrf
+        <button class="btn btn-danger">Sair</button>
+    </form>
 </body>
 </html>
