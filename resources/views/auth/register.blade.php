@@ -7,7 +7,7 @@
 </head>
 <body class="container mt-5">
 
-    <h1>Login</h1>
+    <h1>Cadastro</h1>
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -15,8 +15,13 @@
         </div>
     @endif
 
-    <form method="POST" action="/login">
+    <form method="POST" action="/register">
         @csrf
+
+        <div class="mb-3">
+            <label class="form-label">Nome</label>
+            <input type="name" name="name" class="form-control" value="{{ old('name') }}">
+        </div>
 
         <div class="mb-3">
             <label class="form-label">E-mail</label>
@@ -29,7 +34,6 @@
         </div>
 
         <button class="btn btn-primary">Entrar</button>
-        <a href="/register" class="btn btn-secondary">Cadastre-se</a>
     </form>
 
 </body>
